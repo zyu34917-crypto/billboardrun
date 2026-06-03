@@ -41,6 +41,17 @@
   --done-btn-right: 8.5%;
 }
 
+/* ── 🔧 scaled-root：除 menu 外全部縮 50% ── */
+#scaled-root {
+  position: absolute;
+  inset: 0;
+  transform: scale(0.5);
+  transform-origin: top left;
+  width: 200%;
+  height: 200%;
+  pointer-events: auto;
+}
+
 /* ── 核心引擎樣式 ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #111; display: flex; align-items: center; justify-content: center; width: 100vw; height: 100vh; overflow: hidden; font-family: 'Noto Sans TC', sans-serif; }
@@ -337,20 +348,19 @@ body { background: #111; display: flex; align-items: center; justify-content: ce
   position: absolute; inset: 0; z-index: 2000; display: none;
   background-image: url('images/final_ud_bg.png');
   background-size: cover; background-position: center;
-  flex-direction: column; padding: 100px 45px; overflow-y: auto;
+  flex-direction: column; padding: 50px 30px; overflow-y: auto;
 }
 .info-content {
   color: var(--yellow); font-family: 'Noto Sans TC', sans-serif;
-  font-size: 20px; font-weight: 900; line-height: 1.8; letter-spacing: 1px;
-  /* 黑色描邊文字效果 */
+  font-size: 12px; font-weight: 900; line-height: 1.6; letter-spacing: 0.5px;
   text-shadow: 
-    -2px -2px 0 #000, 2px -2px 0 #000,
-    -2px 2px 0 #000, 2px 2px 0 #000,
-    3px 3px 5px rgba(0,0,0,0.8);
+    -1px -1px 0 #000, 1px -1px 0 #000,
+    -1px 1px 0 #000, 1px 1px 0 #000,
+    2px 2px 4px rgba(0,0,0,0.8);
 }
-.info-content h2 { font-family: var(--font-display); font-size: 55px; margin-bottom: 25px; letter-spacing: 4px; }
-.info-content a { color: var(--yellow); text-decoration: underline; word-break: break-all; display: block; margin-bottom: 15px; cursor: pointer; }
+.info-content h2 { font-family: var(--font-display); font-size: 28px; margin-bottom: 12px; letter-spacing: 2px; }
+.info-content a { color: var(--yellow); text-decoration: underline; word-break: break-all; display: block; margin-bottom: 8px; cursor: pointer; }
 .info-back-btn {
-  margin-top: 40px; background: var(--ink); color: var(--yellow); border: 3px solid var(--yellow);
-  padding: 15px 30px; font-family: var(--font-mono); font-weight: bold; cursor: pointer; align-self: flex-start;
+  margin-top: 20px; background: var(--ink); color: var(--yellow); border: 2px solid var(--yellow);
+  padding: 8px 16px; font-size: 12px; font-family: var(--font-mono); font-weight: bold; cursor: pointer; align-self: flex-start;
 }

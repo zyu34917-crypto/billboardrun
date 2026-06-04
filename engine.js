@@ -452,7 +452,7 @@ const injectArtIntoNews = () => {
               <img id="news-injected-art" src="${state.userArt}" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <p class="news-body-text">
-              <b>【本報訊】</b>一名剛畢業的高中生近日在荒野公路租下大型廣告版位，並利用自動繪圖裝置創作出震撼人心的巨幅作品。該作品上刊後短時間內在社群平台累積超過百萬觀看次數，引起廣泛討論。該作品上刊後短時間內在社群平台累積超過百萬觀看次數，引起廣泛討論。<br><br>據悉，該版位位於近年持續開發中的新興區域，雖然周邊交通條件完善，但由於位置較為邊緣，過去長期缺乏關注。當地業者表示，作品曝光後，大量民眾特地前往現場拍照打卡，使該區域意外成為近期熱門話題之一。
+              <b>【本報訊】</b>一名剛畢業的高中生近日在荒野公路租下大型廣告版位，並利用自動繪圖裝置創作出震撼人心的巨幅作品。該作品上刊後短時間內在社群平台累積超過百萬觀看次數，引起廣泛討論。<br><br>據悉，該版位原本因周邊地理位置偏遠、仍在開發中而乏人問津。當地業者透露，沒想到這件「隨興之作」反而吸引大量遊客駐足拍照，甚至帶動了周邊老舊加油站與雜貨店的商機。
             </p>
           </div>
           <button id="news-close-btn">FINISH READING ▶</button>
@@ -494,7 +494,11 @@ function displayFinalResult() {
 
   toMenuBtn.onclick = () => {
     resLayer.style.display = 'none';
-    injectArtIntoNews();
+    if (state.branch === "A") {
+      injectArtIntoNews();
+    } else {
+      performTransition(() => { quitToMenu(); location.reload(); });
+    }
   };
 }
 

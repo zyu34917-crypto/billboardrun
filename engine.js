@@ -564,7 +564,6 @@ function renderInfoPage(type) {
     contentHTML = `
       <div class="info-content">
         <h2>ABOUT ME</h2>
-        <p>我是剛旅行回來的作者平安🙏</p>
         <p>“Billboard run”是為了紀念我終於從高中畢業的一個小小遊戲，全部都由我一人製作，篇幅較短，整個遊戲時長大概在10分鐘以下。</p>
         <p>希望各位玩的開心！畢業快樂！</p>
         <br><br>

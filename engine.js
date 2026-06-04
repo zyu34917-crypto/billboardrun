@@ -452,7 +452,7 @@ const injectArtIntoNews = () => {
               <img id="news-injected-art" src="${state.userArt}" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <p class="news-body-text">
-              <b>【本報訊】</b>一名剛畢業的高中生近日在荒野公路租下大型廣告版位，並利用自動繪圖裝置創作出震撼人心的巨幅作品。該作品上刊後短時間內在社群平台累積超過百萬觀看次數，引起廣泛討論。<br><br>據悉，該版位位於近年持續開發中的新興區域，雖然周邊交通條件完善，但由於位置較為邊緣，過去長期缺乏關注。當地業者表示，作品曝光後，大量民眾特地前往現場拍照打卡，使該區域意外成為近期熱門話題之一。
+              <b>【本報訊】</b>一名剛畢業的高中生近日在荒野公路租下大型廣告版位，並利用自動繪圖裝置創作出震撼人心的巨幅作品。該作品上刊後短時間內在社群平台累積超過百萬觀看次數，引起廣泛討論。該作品上刊後短時間內在社群平台累積超過百萬觀看次數，引起廣泛討論。<br><br>據悉，該版位位於近年持續開發中的新興區域，雖然周邊交通條件完善，但由於位置較為邊緣，過去長期缺乏關注。當地業者表示，作品曝光後，大量民眾特地前往現場拍照打卡，使該區域意外成為近期熱門話題之一。
             </p>
           </div>
           <button id="news-close-btn">FINISH READING ▶</button>
@@ -503,6 +503,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const intro = document.getElementById('intro-screen');
   const menu = document.getElementById('menu-layer');
   const startBtn = document.getElementById('nav-start');
+
+  // 🎯 預載所有場景圖片
+  function preloadAllImages() {
+    const urls = new Set();
+    // 從 STORY 抓所有 image 欄位
+    Object.values(STORY).forEach(scene => {
+      if (scene.image) urls.add(scene.image);
+    });
+    // 固定會用到的背景圖
+    [
+      'images/menu_bg.png',
+      'images/final_board_art.png',
+      'images/final_board_end1.png',
+      'images/final_board_end2.png',
+      'images/final_ud_bg.png',
+      'images/final_ud_btn.png',
+      'images/death_1.png',
+      'images/death_2.png',
+      'images/death_3.png',
+    ].forEach(u => urls.add(u));
+
+    urls.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }
+  preloadAllImages();
+
   setTimeout(() => { performTransition(() => { intro.style.display = 'none'; menu.style.display = 'block'; }); }, 1000);
   if (startBtn) startBtn.onclick = () => { performTransition(() => { menu.style.display = 'none'; render('start'); }); };
   
@@ -535,7 +563,8 @@ function renderInfoPage(type) {
         <p>我是剛旅行回來的作者平安🙏</p>
         <p>“Billboard run”是為了紀念我終於從高中畢業的一個小小遊戲，全部都由我一人製作，篇幅較短，整個遊戲時長大概在10分鐘以下。</p>
         <p>希望各位玩的開心！畢業快樂！</p>
-		<br><br><p>threads👉 @__leisure1224</p>
+        <br><br>
+        <p>threads👉 @__leisure1224</p>
       </div>
     `;
   } else if (type === 'refs') {

@@ -353,6 +353,42 @@ function renderArtBoard(scene) {
   };
   window.onmouseup = () => { isDragging = false; isResizing = false; };
 
+  // ── 📱 Touch 事件支援（手機拖移與縮放）──
+  function getTouchPos(e) {
+    const r = canvas.getBoundingClientRect();
+    const t = e.touches[0];
+    return { mx: t.clientX - r.left, my: t.clientY - r.top };
+  }
+
+  canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const { mx, my } = getTouchPos(e);
+    // 模擬 mousedown：直接觸發相同邏輯
+    const fakeEvent = { clientX: e.touches[0].clientX, clientY: e.touches[0].clientY };
+    canvas.onmousedown(fakeEvent);
+  }, { passive: false });
+
+  canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    if (selectedIdx === null || (!isDragging && !isResizing)) return;
+    const { mx, my } = getTouchPos(e);
+    const s = shapes[selectedIdx];
+    if (dragMode === 'move') { s.x += (mx - startX); s.y += (my - startY); }
+    else {
+      if (dragMode.includes('r')) s.w += (mx - startX) * 2;
+      if (dragMode.includes('l')) s.w -= (mx - startX) * 2;
+      if (dragMode.includes('b')) s.h += (my - startY) * 2;
+      if (dragMode.includes('t')) s.h -= (my - startY) * 2;
+      s.w = Math.max(10, s.w); s.h = Math.max(10, s.h);
+    }
+    startX = mx; startY = my; drawAll();
+  }, { passive: false });
+
+  canvas.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    isDragging = false; isResizing = false;
+  }, { passive: false });
+
   document.getElementById('btn-rot-cw').onclick = (e) => { e.stopPropagation(); if(selectedIdx!==null){ shapes[selectedIdx].angle += Math.PI/12; drawAll(); }};
   document.getElementById('btn-confirm-shape').onclick = (e) => { e.stopPropagation(); selectedIdx = null; xformBar.style.display = 'none'; drawAll(); };
 
@@ -416,7 +452,7 @@ const injectArtIntoNews = () => {
               <img id="news-injected-art" src="${state.userArt}" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <p class="news-body-text">
-              <b>【本報訊】</b>一名剛畢業的高中生近日在荒野公路租下大型廣告版位，並利用自動繪圖裝置創作出震撼人心的巨幅作品。該作品上刊後短時間內在社群平台累積超過百萬觀看次數，引起廣泛討論。<br><br>據悉，該版位原本因周邊地理位置偏遠、仍在開發中而乏人問津。當地業者透露，沒想到這件「隨興之作」反而吸引大量遊客駐足拍照，甚至帶動了周邊老舊加油站與雜貨店的商機。
+              <b>【本報訊】</b>一名剛畢業的高中生近日在荒野公路租下大型廣告版位，並利用自動繪圖裝置創作出震撼人心的巨幅作品。該作品上刊後短時間內在社群平台累積超過百萬觀看次數，引起廣泛討論。<br><br>據悉，該版位位於近年持續開發中的新興區域，雖然周邊交通條件完善，但由於位置較為邊緣，過去長期缺乏關注。當地業者表示，作品曝光後，大量民眾特地前往現場拍照打卡，使該區域意外成為近期熱門話題之一。
             </p>
           </div>
           <button id="news-close-btn">FINISH READING ▶</button>
@@ -499,6 +535,7 @@ function renderInfoPage(type) {
         <p>我是剛旅行回來的作者平安🙏</p>
         <p>“Billboard run”是為了紀念我終於從高中畢業的一個小小遊戲，全部都由我一人製作，篇幅較短，整個遊戲時長大概在10分鐘以下。</p>
         <p>希望各位玩的開心！畢業快樂！</p>
+		<br><br><p>threads👉 @__leisure1224</p>
       </div>
     `;
   } else if (type === 'refs') {

@@ -62,7 +62,7 @@
 /* ── 核心引擎樣式 ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #111; display: flex; align-items: center; justify-content: center; width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; font-family: 'Noto Sans TC', sans-serif; }
-#viewport { position: relative; height: 92vh; height: 92dvh; aspect-ratio: 1206 / 2622; background: var(--bg); box-shadow: 0 0 50px rgba(0,0,0,0.9); overflow: hidden; }
+#viewport { position: relative; height: 92vh; height: 92svh; aspect-ratio: 1206 / 2622; background: var(--bg); box-shadow: 0 0 50px rgba(0,0,0,0.9); overflow: hidden; }
 
 #intro-screen { position: absolute; inset: 0; background: var(--yellow); z-index: 5000; display: flex; align-items: center; justify-content: center; }
 .intro-text { font-family: var(--font-display); font-size: 42px; color: var(--ink); letter-spacing: 2px; }
